@@ -1,0 +1,1170 @@
+/* Vendor Dependencies */
+@import "compass";
+@import "singularitygs";
+@import "import/vendor/normalize";
+@import "import/vendor/font-awesome";
+/*@import "import/vendor/font-awesome";*/
+
+/* Authored Dependencies */
+@import "import/fl-scripts";
+
+/* Patterns */
+@import "import/dynamic-products";
+@import "import/forms"; // default styles for forms
+@import "import/practice-products";
+
+/* Sections */
+@import "import/publisher"; // default publisher styles
+@import "import/wysiwyg";
+@import "import/blog";
+// @import "import/template"; // please use as a reference
+
+// apply a natural box layout model to all elements
+* {
+	@include box-sizing(border-box);
+}
+
+//   __  __ _____  _____ _   _ ____
+//  |  \/  |_ _\ \/ /_ _| \ | / ___|
+//  | |\/| || | \  / | ||  \| \___ \
+//  | |  | || | /  \ | || |\  |___) |
+//  |_|  |_|___/_/\_\___|_| \_|____/
+//
+//   ~ SCSS mixins and variables ~
+
+$experimental-support-for-svg: true;
+$grids: 16;
+$gutters: 20/60;
+$max-page-width: 1260px;
+$mobile-first: false;
+
+// Web Safe Fonts
+$font-arial: Arial, Helvetica, sans-serif;
+$font-arial-black: "Arial Black", Gadget, sans-serif;
+$font-courier: "Courier New", Courier, Monospace;
+$font-georgia: Georgia, serif;
+$font-lucida-console: "Lucida Console", Monaco, monospace;
+$font-lucida-sans: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+$font-tahoma: Tahoma, Geneva, sans-serif;
+$font-times: "Times New Roman", Times, serif;
+$font-trebuchet: "Trebuchet MS", Tahoma, Arial, sans-serif;
+$font-verdana: Verdana, Geneva, sans-serif;
+$font-baskerville: Baskerville, Palatino, "Palatino Linotype", Georgia, Serif;
+
+
+$font-frank: 'Frank Ruhl Libre', serif;
+$font-raleway: 'Raleway', sans-serif;
+
+
+/*Colors*/
+
+$color-black: #000000;
+$color-white: #ffffff;
+$color-light_orange: #e2cfa9;
+$color-grey: #616161;
+$color-lavender: #7d5d73;
+$color-granny: #977d8f;
+$color-solitaire: #e6d5c2;
+$color-orange: #bd532e;
+$color-afghan_tan: #caab8f;
+$color-scroll_bar: #d4886e;
+$color-second_nav_border: #ebddce;
+
+.clearfix {
+	&:before {
+		content: "";
+		display: table;
+	}
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+}  
+ 
+//   ____    _    ____  _____   ____ _______   ___     _____ ____
+//  | __ )  / \  / ___|| ____| / ___|_   _\ \ / / |   | ____/ ___|
+//  |  _ \ / _ \ \___ \|  _|   \___ \ | |  \ V /| |   |  _| \___ \
+//  | |_) / ___ \ ___) | |___   ___) || |   | | | |___| |___ ___) |
+//  |____/_/   \_\____/|_____| |____/ |_|   |_| |_____|_____|____/
+//
+//            ~ element selectors ~
+
+html {
+	font-size: 62.5%;
+	line-height: 1.7;
+}
+
+body {
+	font-size: 18px;
+	color: #000000;
+	/*font-family: $font-poppins;*/
+	overflow-x: hidden; 
+    font-size: 1.8rem;
+    font-family: $font-frank;
+    color: #616161;
+}
+
+a {
+	color: $color-orange;
+
+	&:visited {
+		color: $color-light_orange;
+	}
+	&:hover, &:focus {
+		color: $color-light_orange;
+	}
+	&:active, .current {
+		color: $color-light_orange;
+	}
+}
+
+.page-title{
+	font: 300 48px/1.5 $font-raleway;
+	color: $color-black; 
+    padding: 0 87px 0px 0;
+    margin: 0;
+	/*line-height:  73px;*/
+	@include breakpoint(max-width 750px){
+	    font-size: 40px;
+	    margin: 10px 0px;	
+	}
+}
+
+h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 10px 0;
+	color: $color-black;
+}
+
+h2 {
+	font: 300 36px $font-raleway; 
+	@include breakpoint(max-width 750px){
+		font-size: 30px;	
+	}
+	@include breakpoint(max-width 650px) {
+		font-size: 22px;
+	}
+}
+h3 { 
+	font: 300 24px $font-raleway;  
+}
+
+img{
+    width: 100%;
+}
+
+td img {
+	max-width: none; // max-width breaks the design when images reside within table cells (try max-width: 100% and see)
+}
+
+//   ____  _____ _____ _   _   _ _   _____   ____ _______   ___     _____ ____
+//  |  _ \| ____|  ___/ \ | | | | | |_   _| / ___|_   _\ \ / / |   | ____/ ___|
+//  | | | |  _| | |_ / _ \| | | | |   | |   \___ \ | |  \ V /| |   |  _| \___ \
+//  | |_| | |___|  _/ ___ \ |_| | |___| |    ___) || |   | | | |___| |___ ___) |
+//  |____/|_____|_|/_/   \_\___/|_____|_|   |____/ |_|   |_| |_____|_____|____/
+//
+//                ~ all resolutions ~
+
+
+body::-webkit-scrollbar {
+    width: 7px;  
+}
+
+body::-webkit-scrollbar:hover {
+  width: 30px;
+}
+ 
+body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
+    border-radius: 50px;
+}
+ 
+body::-webkit-scrollbar-thumb {
+  background-color: $color-orange;
+  outline: 1px solid $color-orange; 
+  border-radius: 50px;
+}
+
+body.design {
+}
+
+// Center Align all containers here
+.header-page, .container-columns, .footer-page, .practice-wrap, .banner-container, .secondary-container, .contact-info-container, .third-container, .practice-areas-container, .footer-page-container, .primary-container, .banner-container, .short-form-container
+{
+	@include clearfix(); 
+	margin: 0 auto;
+	max-width: $max-page-width;
+	@include breakpoint(max-width 1180px) {
+		padding: 0 10px;
+	}
+}
+
+[class$="wrap"] {
+	@include breakpoint(max-width 1300px){
+		padding: 0 10px;	
+	}
+}
+
+.transition{
+	-webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+ 
+.container-brand-cta {
+	@include clearfix();
+	padding: 30px 0;
+}
+
+.brand {
+	@include grid-span(6, 1);
+	display: block;
+	width: 40%;
+	float: left;
+	margin: 0 0 18px; 
+	align-items: center; 
+	line-height: 1.3;
+	/*font-family: $font-roboto;*/
+	font-size: 34px;
+	text-decoration: none;
+	
+	@include breakpoint(max-width 1200px){
+		font-size: 28px;
+		width: 35%;
+	} 
+	@include breakpoint(max-width 1040px){
+		width: 30%;
+	}
+	@include breakpoint(max-width 977px) {
+		padding-left: 10px;
+		font-size: 20px;
+		float: none;  
+		margin: 10px auto;
+		width: 100%;
+		text-align: center;	
+	}  
+	span{
+		display: block;
+		font-family: $font-frank;
+		color: $color-white;
+		&:nth-child(1){
+			font-weight: 400;
+			font-size: 22px;
+			@include breakpoint(max-width 1200px){
+				font-size: 20px;	
+			} 
+			@include breakpoint(max-width 750px){
+				font-size: 22px;	
+			}
+		}
+		&:nth-child(2){
+			font-weight: 700;
+			font-size: 40px; 
+			@include breakpoint(max-width 1200px){
+				font-size: 30px;	
+			}
+			@include breakpoint(max-width 1040px){
+				font-size: 24px;	
+			}
+			@include breakpoint(max-width 750px){
+				font-size: 30px;	
+			}
+		}
+	}
+}
+
+.brand-text{
+	color: #000000; 
+	
+}
+
+.cta {
+	float: right;
+	font: 300 18px $font-raleway;
+    margin: 8px 0 0; 
+    text-align: right;
+    color: $color-white;
+    /*font: 300 18px $font-roboto;*/ 
+    font-size: 17px;
+	a {
+		color: #dd6906;
+		text-decoration: none;
+	}
+	@include breakpoint(max-width 1200px){
+		margin: 9px 0;	
+	}
+	@include breakpoint(max-width 977px) {
+		padding-right: 10px;
+	}
+	@include breakpoint(max-width 977px){
+		text-align: center;
+   	 	width: 100%;
+	}
+	@include breakpoint(max-width 650px) {
+		clear: both;
+		float: none;
+		display: table;
+		margin: 10px auto;
+		font-size: 16px;
+	}
+}
+
+.cta-text{
+	@include breakpoint(max-width 750px){
+		text-align: center;	
+	}
+	strong{
+		font: 300 24px $font-frank;
+		@include breakpoint(max-width 750px){
+			display: inline-block;	
+		}
+		@include breakpoint(max-width 650px) {
+			font-size: 18px;
+		}
+	}
+} 
+
+.banner-wrap{
+    @extend .clearfix;
+	background: url("../images/bg-banner.jpg") top center no-repeat; 
+    background-size: cover;
+    padding: 31px 0 65px;
+} 
+
+.banner-container{
+	position: relative;
+	img{
+		position: absolute; 
+
+	}
+}
+
+/* ***************** NAVIGATION MAIN STARTS HERE *********************** */
+
+.btn-nav-main, .btn-contact{
+	display: none;
+	@include breakpoint(max-width 650px){
+		display: block;	
+	}
+}
+
+a.btn-mobile {
+	display: none;
+	@include breakpoint (max-width 750px) {
+		display: block;
+		font-family: $font-raleway;
+		font-weight: 700;
+		color: #fff;
+		font-size: 16px;
+		background: #dd6906;
+	    padding: 12px 10px;
+		text-decoration: none;
+		margin-bottom: 10px;
+		text-align: center;
+	    border-radius: 40px;
+	    @extend .transition;
+		span {
+			padding-right: 8px;
+		}
+		&:hover, &:focus, &.current, &:visited {
+			color: #fff;    
+		}
+	}
+} 
+
+.btn-nav-main{ 
+	float: left;
+    width: 50%;
+    text-align: center; 
+}
+
+.btn-contact{
+	float: left;
+    width: 50%;
+    text-align: center;
+    @include breakpoint(max-width 650px){
+	    padding: 10px;
+    }
+}
+
+
+.nav-main { 
+	display: inline-block; 
+	font: 300 17px $font-raleway;
+	font-size: 1.7rem;
+    padding: 10px 0px;
+    clear: right;
+    float: right;
+	/*font: 300 17px $font-roboto;*/
+	@include breakpoint(max-width 977px){
+		text-align: center;
+		width: 100%;
+		margin: 0 auto;
+    	display: table;
+	} 
+	@include breakpoint(max-width 760px){ 
+    /*Make dropdown links appear inline*/ 
+        position: static;
+        display: none;
+    }
+    ul{
+    	margin: 0;
+    	padding: 0; 
+		li {
+			float: left;
+			list-style-type: none;
+			@include breakpoint(max-width 760px){
+				margin-bottom: 1px;	
+				width: 100%;
+	    		text-align: center;
+			}
+		} 
+		a {
+			text-decoration: none;
+			display: block;
+			color: $color-white;
+			padding: 0px 0 0px 20px; 
+			@extend .transition;
+			&:hover, &:focus, &.current {
+				color: $color-light_orange;
+				text-decoration: none;
+			}
+			@include breakpoint(max-width 650px){
+			    padding-left: 0;	
+			}
+		}  
+	}
+}
+
+.show-menu {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-decoration: none;
+    color: #fff;
+    background: #19c589;
+    text-align: center;
+    padding: 10px 0;
+    display: none;
+    @include breakpoint(max-width 760px){
+    	display:block;	
+    }
+}
+
+input[type=checkbox]{
+    display: none;
+}
+input[type=checkbox]:checked ~ #menu{
+    display: block;
+}
+
+ 
+/* ***************** NAVIGATION MAIN ENDS HERE *********************** */
+
+
+
+.tagline{
+	font: 300 60px $font-raleway;
+	color: $color-white;
+	margin: 70px 0px 155px; 
+    float: left; 
+    clear: none; 
+    color: #ffffff;
+    text-align: left;
+    margin: 11.5% 0 0;
+	@include breakpoint(max-width 1200px){
+		font-size: 40px;	
+		margin: 40px 0px 55px; 
+		text-align: center;	
+	}
+	@include breakpoint(max-width 750px){
+		font-size: 35px; 
+	}
+	@include breakpoint(max-width 400px){
+		font-size: 30px;
+	}
+}
+
+.container-columns{
+    padding: 63px 0;
+    @include breakpoint(max-width 750px){
+    	padding: 40px 0;	
+    }
+}
+
+.container-column-main {
+    float: left;
+    width: 100%;
+}
+
+.column-main {
+    margin-right: 375px;
+    line-height: 1.7;
+    padding: 0 30px 0 0;
+    @include breakpoint(max-width 750px){
+	    padding: 0 0px 0 0;
+	    margin-right: 0;
+    	float: none;
+    }
+}
+
+.column-side {
+    float: right;
+    width: (60px * 5) + (20px * 4);
+    margin-left: -100%;
+    padding-left: 37px;
+    @include breakpoint(max-width 750px){
+	    padding: 0 0px 0 0;
+	    width: 100%;
+    	clear: both;
+    }
+}
+
+.column-main{
+	color: $color-grey;
+}
+
+.callout{
+	padding: 35px 45px;
+	font: 300 18px $font-frank;
+	background-color: #f8f8f8;
+	color: $color-black;
+}
+
+.title-practice{
+	font: 300 36px $font-raleway;
+}
+
+.nav-practice{
+	ul{
+		padding: 0;
+		margin: 0;
+		li{
+			list-style: none;
+			color: $color-white; 
+		    padding: 0;
+    		margin: 0;
+			background-color: $color-lavender;
+			ul{
+				padding: 0;
+				li{
+					a{
+						background: $color-solitaire;
+						color: $color-black;
+						border-bottom: 1px solid $color-second_nav_border; 
+						@extend .transition;
+						&:hover, &:focus, &.current {
+							background: $color-afghan_tan;
+						}
+					}
+				}
+			}
+			a{
+				color: $color-white;
+				text-decoration: none; 
+				font: 300 18px $font-raleway;
+				padding: 15px 30px; 
+				border-bottom: 1px solid $color-granny;
+    			display: block;
+    			@extend .transition;
+    			&:hover, &.current {
+					background-color: $color-solitaire;
+					color: $color-black;
+				}
+				&:active{
+					background-color: $color-afghan_tan;
+					color: $color-black;
+				}
+				&.toggle {
+		            width: 100%;
+		            display: block;   
+		            transition: background .3s ease;  
+		        } 
+			}
+			
+		}
+	}
+	.inner { 
+        overflow: hidden;
+        display: none; 
+        &.show {
+          display: block;
+        }
+    }
+}
+
+.badges{
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	padding: 0; 
+    margin: 82px auto 0;
+	li{
+		list-style: none;
+	}
+}
+
+.home{
+	.banner-wrap{
+		background: url("../images/bg-banner-home.jpg") no-repeat center top;
+		background-size: cover;
+	    padding: 31px 0 68px; 
+	} 
+
+	.tagline{
+		font: 300 80px $font-raleway; 
+	    margin: 5% 0 0;
+        float: left;
+	    margin-right: -100%;
+	    margin-left: 0%;
+	    clear: none;
+	    width: 57%; 
+	    color: $color-white;
+	    text-align: left;      
+    	margin: 5% 0 0;
+	}
+	.page-title{
+		font: 300 60px $font-raleway; 
+	    padding: 29px 0 93px 0; 
+	    font-size: 6rem;
+	    color: #000000;
+	}
+	.primary-wrap, .secondary-wrap, .third-wrap{
+		p{
+			position: relative;
+			padding: 0px 0 0px 50px; 
+			line-height:1.7; 
+			color: $color-grey;
+			&:before{
+				content: "";
+				position: absolute;
+				left: 0;
+				top: 11px;
+				width: 33px;
+				height: 4px;
+				background-color: $color-orange;
+			} 
+		}
+	}
+	.secondary-wrap{
+		p{
+			&:before{
+				background-color: $color-white;
+			}
+		}
+	}
+} 
+
+.primary-container{
+	.section{
+		    padding: 5.5% 0 58px;
+	}
+}
+
+.practice-container{
+	h2{
+		text-align: center;
+		font: 300 60px $font-raleway;
+	}
+	ul{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap;
+		padding: 0; 
+		li{
+			margin-right: 24px;
+			margin-bottom: 20px;
+			list-style: none;
+			width: calc(34.6% - 32px);
+			&:nth-child(3n){
+				margin-right: 0;
+			}
+			a{
+				text-align: center;
+    			width: 100%; 
+				text-decoration: none;
+    			background-size: cover !important;
+				padding: 175px 0 80px;
+    			display: inline-block;
+    			position: relative; 
+			    min-height: 395px;
+				display: flex;
+				align-items: center;
+				justify-content: flex-end;
+				flex-wrap: wrap;
+				flex-direction: column;
+				@extend .transition;
+				span{
+					display: block;
+					
+				}
+				@include breakpoint(max-width 1200px){
+					padding: 172px 0 49px;	
+				}
+			}
+			.family{
+				background: url("../images/family.jpg") no-repeat center;
+				&:hover{
+					background: url("../images/family-o.jpg") no-repeat center; 
+				}
+			}
+			.divorce{
+				background: url("../images/divorce.jpg") no-repeat center;
+				&:hover{
+					background: url("../images/divorce-o.jpg") no-repeat center; 
+				} 
+			}
+			.mediation{
+				background: url("../images/mediation.jpg") no-repeat center;
+				&:hover{
+					background: url("../images/mediation-o.jpg") no-repeat center; 
+				}
+			}
+			.child-custody{
+				background: url("../images/child-custody.jpg") no-repeat center;
+				&:hover{
+					background: url("../images/child-custody-o.jpg") no-repeat center; 
+				}
+			}
+			.alimony{
+				background: url("../images/alimony.jpg") no-repeat center;
+				&:hover{
+					background: url("../images/alimony-o.jpg") no-repeat center; 
+				}
+			}	
+			.marital{
+				background: url("../images/marital.jpg") no-repeat center;
+				&:hover{
+					background: url("../images/marital-o.jpg") no-repeat center; 
+				}
+			}
+		}
+	}
+
+	.heading{
+		position: relative;
+		font: 300 30px $font-raleway;
+		display: block;
+		color: $color-white;
+		padding: 0px 0px 40px;
+		&:before{
+			content: "";
+			position: absolute;
+			height: 6px;
+			width: 40px;
+			left: calc(50% - 18px);
+			bottom: 17px;
+			background-color: $color-white;
+		}
+	}
+
+	.learn-more{
+		font: 300 16px $font-raleway;
+		color: $color-white;
+	}
+}
+
+.secondary-container{
+	.section-left{
+		float: left;
+		width: (60px*7) + (20px*7);
+	}
+	.section-right{
+		@include grid-span(9,8);   
+		float: right;
+	    padding: 160px 0px 90px 100px;
+	    position: relative;
+		margin: 40px 0px;
+		&:before{
+			content: "";
+		    position: absolute;
+		    height: 100%;
+		    width: 100em;
+		    background: url(../images/bg-secondary.jpg) no-repeat;
+		    top: 90px;
+		    left: 0;
+		    z-index: -9999;
+		}
+		h2{
+			color: $color-white;
+			font: 300 60px $font-raleway;
+		}
+		p{
+			color: $color-white;
+		}
+	}
+}
+
+.third-container{
+    padding: 0 0 103px;
+	.section-left{
+		@include grid-span(10,1);
+		padding: 64px 0;
+		h2{
+			font: 300 60px $font-raleway;
+			padding: 10px 0 41px;
+		}
+	}
+	.section-right{
+		@include grid-span(5,12);
+	}
+}
+
+.content{
+    line-height: 1.77;
+}
+
+.banner-btn{
+	font: 300 16px $font-raleway;
+	background-color: $color-light_orange;   
+	text-align: center;
+	text-decoration: none;
+	color: $color-black;
+    margin-top: 25px;   
+    text-transform: uppercase; 
+    width: 100%;
+    margin: 9.5% 0; 
+    padding: 33px 48px 34px 49px;
+    max-width: 302px;
+    width: 100%;
+    letter-spacing: .025px;
+    display: -webkit-box;  
+    background: #e2cfa9; 
+    text-decoration: none; 
+
+    @extend .transition;
+    @include breakpoint(max-width 750px){
+    	display: table;
+    	margin-bottom: 0 auto;	
+    }
+	&:hover{
+		background-color: $color-white;
+		color: $color-black;
+	}
+}
+
+/*short form begins*/
+
+.short-form-wrap {
+	background: url(../images/bg-short-form.jpg) no-repeat top center;
+	background-size: auto 100%;
+	padding-top: 116px;
+	padding-bottom: 121px;
+	@include breakpoint (max-width 750px) {
+		display: none;
+	}
+}
+
+.title-short-form { 
+	@include grid-span(10,1);
+	font: 300 30px $font-raleway;  
+	color: #fff;
+	margin: 15px 0;
+	@include breakpoint(max-width 1200px){
+		font-size: 23px;	
+	}
+}
+
+.cta-short_form{
+	@include grid-span(6,11);
+	font: 300 48px $font-raleway;
+	color: $color-white;
+	text-align: center;
+	position: relative;
+	padding: 20px 0;
+	@include breakpoint(max-width 1200px){
+		font-size: 33px;	
+		padding: 26px 0;
+	}
+	&:before{
+	    content: "";
+	    position: absolute;
+	    top: 12px;
+	    left: 0;
+	    height: 80px;
+	    width: 2px;
+	    background: white;
+		@include breakpoint(max-width 1200px){
+	    	height: 50px; 
+	    	top: 20px;
+	    	left: -10px;
+		}
+	}
+}
+
+.short-form {
+	p { 
+	    font-size: 16px;
+	    color: #ffffff;
+	    margin: 3px 0 10px;
+	    letter-spacing: 0.2px;
+	    clear: both;
+	}
+
+	input, textarea { 
+	    width: 32.3%;
+	    height: 45px;
+	    font-size: 16px;
+	    color: #333333;
+	    margin: 0 14px 19px 0;
+	    padding: 0px 0 0 15px;
+	    border: 0;
+	    @include breakpoint (max-width 1200px) {
+			width: 31.5%;
+			margin: 0 22px 18px 0;
+		}
+		@include breakpoint (max-width 950px) {
+			width: 30%;
+			margin: 0 10px 18px 0;
+		}
+	}
+	input:nth-child(3) {
+		margin-right: 0;
+	}
+
+	textarea {
+	    width: 100%;
+        margin-right: 0;
+	    height: 77px;
+	    padding: 18px 0 0 17px;
+        margin-bottom: 20px;
+	}
+
+	.formCheck { 
+		font-size: 16px;
+	    color: #ffffff;
+	    margin: 0;
+	    vertical-align: middle;
+	    display: table;
+		input {
+		    width: 20px;
+		    height: 20px;
+		    vertical-align: top;
+		    margin: 0px 10px 0 0;
+		}
+		a {
+			color: $color-white;
+			text-decoration: underline;
+			@extend .transition;
+			&:hover, &:focus, &.current {
+				text-decoration: none;
+			}
+		}
+	}
+
+	#intakeFormShortAutofillSubmit { 
+		font: 300 20px $font-raleway; 
+	    text-transform: uppercase; 
+	    color: #fff;
+	    width: 100%;
+	    max-width: 380px;
+	    background: $color-orange; 
+	    margin: -20px 0 0;
+	    border: 0;
+	    padding: 23px 0 22px;
+	    float: right;
+	    @extend .transition;
+	    &:hover, &:focus, &.current {
+	    	background: $color-light_orange;
+	    }
+	}
+}
+
+/*Contact Information Starts*/
+
+.contact-info-wrap {
+	background: url("../images/map-image.jpg") no-repeat top center;
+	background-size: cover;
+	padding: 94px 0 48px;
+	@include breakpoint (max-width 750px) {
+		padding: 30px;
+		margin-top: 20px;
+	}
+}
+
+.contact-info { 
+	font: 300 18px $font-frank;
+    color: #000000;
+    line-height: 1.7;
+    background: #fff;
+    padding: 44px 143px 52px 52px;
+    float: left;
+    font-size: 20px;
+    p {
+    	margin: 0;
+    }
+    @include breakpoint (max-width 750px) {
+		margin: 0 auto;
+	    display: block;
+	    float: none;
+	    text-align: center;
+	    padding: 10px;
+	}
+}
+
+.office-page-link, .office-page-page {
+	font: 300 16px $font-raleway; 
+	/*font-family: $font-popp;*/ 
+    text-transform: uppercase;
+    text-decoration: none; 
+    color: $color-white;
+    width: 100%;
+    max-width: 200px;
+    background: $color-orange; 
+    margin: 37px 0 0;
+    padding: 15px 0 15px;
+    text-align: center;
+    display: table;
+    @extend .transition;
+    &:hover, &:focus, &.current {
+    	background: $color-light_orange;  
+		color: #fff; 
+    }
+    @include breakpoint (max-width 750px) {
+		margin: 0 auto;
+	    display: block;
+	    float: none;
+	    text-align: center;
+	}
+}
+
+/*Contact Information Ends*/
+
+/*footer starts*/
+.footer-page-wrap {
+	background: #fff;
+}
+
+.footer-page-container {
+	padding-top: 72px;
+	padding-bottom: 70px;
+	@include breakpoint (max-width 950px) {
+		padding: 40px;
+	}
+	@include breakpoint (max-width 750px) {
+		padding: 20px 10px;
+		text-align: center;
+	}
+}
+
+.footer-page-left {
+	@include grid-span(9,1);
+	@include breakpoint (max-width 750px) {
+		width: 100%;
+	}
+}
+
+.footer-page-right {
+	@include grid-span(3, 14);
+	@include breakpoint (max-width 1200px) {
+		width: 30%;
+	}
+	@include breakpoint (max-width 750px) {
+		width: 100%;
+		clear: both;
+		margin: 10px 0px;
+	}
+}
+
+.fine-print {
+	/*font-family: $font-robo;*/
+    font-size: 16px;
+    font-weight: 400;
+    color: #333333;
+    line-height: 1.87;
+	a {
+		color: #333333;
+		@extend .transition;
+		&:hover, &:focus, &:active {
+			color: #dd6906;
+		}
+	}
+	p {
+		margin-top: 0;
+		margin-bottom: 0;
+		padding: 0;
+	}
+}
+
+a.review-us { 
+	font: 300 18px $font-raleway;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: $color-white;
+    max-width: 140px;
+    width: 100%;
+    background: $color-orange; 
+    margin: 0 5px 0 0;
+    border: 0;
+    outline: 0;
+    padding: 15px 0 13px;
+    text-align: center;
+    display: table;
+    float: left;
+    @extend .transition;
+    &:hover, &:focus, &.current {
+		background: $color-light_orange;
+	} 
+	@include breakpoint (max-width 750px) {
+		padding: 15px 12px 16px;
+		margin: 20px 0;
+		float: none;
+	    display: inline;
+	}
+}
+
+
+.social-icons {
+	padding-left: 67px;
+	a.linkedin, a.twitter, a.facebook {
+	    width: 58px;
+	    height: 58px;
+	    background: #bfc78a;
+	    color: #fff;
+	    display: table;
+	    border-radius: 50%;
+	    text-decoration: none;
+	    float: left;
+	    font-size: 30px;
+	    text-align: center;
+	    margin-bottom: 5px;
+	    margin-right: 18px;
+        line-height: 1.9;
+        @extend .transition;
+		&:hover, &:focus, &.current {
+			background: #904401;
+		}
+		@include breakpoint (max-width 750px) {
+			width: 40px;
+	    	height: 40px;
+	    	font-size: 20px;
+	    	float: none;
+	    	display: inline-block;
+	    	margin-right: 0;
+		}
+	}
+	
+}
+
+a.back-to-top {
+	color: $color-white;
+	padding: 11px 17px;
+	text-align: center;
+	margin: 0 10px;
+	background-color: $color-orange;
+    display: inline-block;
+    @extend .transition;
+    @include breakpoint(max-width 1200px){
+	    margin: 0 2px;
+    }
+    @include breakpoint(max-width 750px){
+    	padding: 13px 17px;	
+    }
+	&:hover, &:focus, &.current {
+		background: $color-light_orange;
+		color: #fff;
+	}
+}
+/*footer ends*/
